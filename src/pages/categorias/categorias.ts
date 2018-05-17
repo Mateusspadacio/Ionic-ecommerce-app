@@ -10,6 +10,8 @@ import { CategoriaDTO } from '../../models/categoria.dto';
 })
 export class CategoriasPage {
 
+  public categoriasDTO: CategoriaDTO[] = [];
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public categoriaService: CategoriaService) {
@@ -17,8 +19,8 @@ export class CategoriasPage {
 
   ionViewDidLoad() {
     this.categoriaService.findAll()
-    .subscribe((resposta: CategoriaDTO[]) => {
-      console.log(resposta);
+    .subscribe((categorias: CategoriaDTO[]) => {
+      this.categoriasDTO = categorias;
     },
     (error: Error) => {
       console.log(error)
