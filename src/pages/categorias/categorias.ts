@@ -22,9 +22,7 @@ export class CategoriasPage {
     .subscribe((categorias: CategoriaDTO[]) => {
       this.categoriasDTO = categorias;
     },
-    (error: Error) => {
-      console.log(error)
-    });
+    (error: Error) => {console.log('erro na categoria')});
   }
 
 }
