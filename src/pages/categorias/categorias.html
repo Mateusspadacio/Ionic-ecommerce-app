@@ -14,7 +14,7 @@
   <ion-list>
     <button *ngFor="let categoria of categoriasDTO" ion-item>
       <ion-thumbnail item-start>
-        <img [src]="categoria.urlImage || ''">
+        <img [src]="categoria.urlImage || semImagem">
       </ion-thumbnail>
       <h2>{{categoria.nome}}</h2>
     </button>

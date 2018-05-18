@@ -11,6 +11,7 @@ import { CategoriaDTO } from '../../models/categoria.dto';
 export class CategoriasPage {
 
   public categoriasDTO: CategoriaDTO[] = [];
+  public semImagem: string = "/assets/imgs/white.jpg";
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
@@ -19,10 +20,11 @@ export class CategoriasPage {
 
   ionViewDidLoad() {
     this.categoriaService.findAll()
-    .subscribe((categorias: CategoriaDTO[]) => {
+    .then((categorias: CategoriaDTO[]) => {
       this.categoriasDTO = categorias;
+      console.log(this.categoriasDTO)
     },
-    (error: Error) => {console.log('erro na categoria')});
+    (error: Error) => {});
   }
 
 }

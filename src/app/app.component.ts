@@ -1,27 +1,43 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import * as firebase from 'firebase';
+import { StorageService } from '../services/storage.service';
+
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string = 'HomePage';
 
-  pages: Array<{title: string, component: string}>;
+  pages: Array<{ title: string, component: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: StorageService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: 'HomePage' },
-      { title: 'Categorias', component: 'CategoriasPage'}
+      { title: 'Perfil', component: 'ProfilePage'},
+      { title: 'Categorias', component: 'CategoriasPage' }
     ];
 
+  }
+
+  ngOnInit() {
+    var config = {
+      apiKey: "AIzaSyBVw76-lxWss8OfdOGHAhH6EphbzbkZT5Y",
+      authDomain: "jta-ecommerce-spring-boot.firebaseapp.com",
+      databaseURL: "https://jta-ecommerce-spring-boot.firebaseio.com",
+      projectId: "jta-ecommerce-spring-boot",
+      storageBucket: "jta-ecommerce-spring-boot.appspot.com",
+      messagingSenderId: "136498232235"
+    };
+    firebase.initializeApp(config);
   }
 
   initializeApp() {
