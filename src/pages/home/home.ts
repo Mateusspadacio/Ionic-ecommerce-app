@@ -32,17 +32,32 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
-  login() {
+  ionViewDidEnter() {
     this.buttomLoginClicked = true;
-    this.auth.authenticate(this.creds)
+    this.auth.refreshToken()
       .subscribe(response => {
-        this.auth.successfulLogin(response.headers.get("authorization"));
-        this.buttomLoginClicked = false;
-        this.navCtrl.setRoot('CategoriasPage');
+        this.redirect(response);
       },
         error => {
           this.buttomLoginClicked = false;
         });
+  }
+
+  login() {
+    this.buttomLoginClicked = true;
+    this.auth.authenticate(this.creds)
+      .subscribe(response => {
+        this.redirect(response);
+      },
+        error => {
+          this.buttomLoginClicked = false;
+        });
+  }
+
+  private redirect(response: any): void {
+    this.auth.successfulLogin(response.headers.get("authorization"));
+    this.buttomLoginClicked = false;
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
 }
