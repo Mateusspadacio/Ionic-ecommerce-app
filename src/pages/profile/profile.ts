@@ -36,9 +36,19 @@ export class ProfilePage {
           this.cliente = cliente;
           this.getImageProfile();
         },
-        (error: any) => { 
-          this.loading.hideLoadingWithTime(1000);
-        })
+          (error: any) => {
+
+            if (error.status == 403) {
+              this.loading.hideLoading();
+              this.navCtrl.setRoot('HomePage');
+            } else {
+              this.loading.hideLoadingWithTime(1000);
+            }
+
+          })
+    } else {
+      this.loading.hideLoading();
+      this.navCtrl.setRoot('HomePage');
     }
 
   }
