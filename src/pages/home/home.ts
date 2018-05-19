@@ -3,6 +3,7 @@ import { NavController, IonicPage, MenuController } from 'ionic-angular';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { ToastConfig } from '../../config/toast.config';
 
 @IonicPage()
 @Component({

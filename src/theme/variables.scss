@@ -43,6 +43,14 @@ $loading-md-box-shadow: none;
   background-color: white;
 }
 
+ion-toast.success .toast-wrapper {
+  background: green;
+}
+
+ion-toast.error .toast-wrapper {
+  background: rgb(209, 71, 71);
+}
+
 $colors: (
   primary:    #488aff,
   secondary:  #32db64,

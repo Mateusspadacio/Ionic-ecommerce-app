@@ -5,6 +5,7 @@ import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
 
+
 @IonicPage()
 @Component({
   selector: 'page-profile',
@@ -39,16 +40,14 @@ export class ProfilePage {
           (error: any) => {
 
             if (error.status == 403) {
-              this.loading.hideLoading();
-              this.navCtrl.setRoot('HomePage');
+              this.redirectIfInvalid();
             } else {
               this.loading.hideLoadingWithTime(1000);
             }
 
           })
     } else {
-      this.loading.hideLoading();
-      this.navCtrl.setRoot('HomePage');
+      this.redirectIfInvalid();
     }
 
   }
@@ -62,6 +61,11 @@ export class ProfilePage {
       .catch((error: any) => {
         this.loading.hideLoadingWithTime(1000);
       })
+  }
+
+  private redirectIfInvalid(): void {
+    this.loading.hideLoading();
+    this.navCtrl.setRoot('HomePage');
   }
 
 }
