@@ -13,12 +13,8 @@ export class ClienteService {
                 public storage: StorageService){}
 
     findByEmail(email: string): Observable<ClienteDTO> {
-        let token = this.storage.getLocalUser().token;
-        let authHeader = new HttpHeaders({'Authorization': 'Bearer ' + token});
-
         return this.http.get<ClienteDTO>(
-            `${API_CONFIG.baseUrl}/clientes/email?value=${email}`,
-            {'headers': authHeader})
+            `${API_CONFIG.baseUrl}/clientes/email?value=${email}`)
     }
 
     findImageUserProfile(id: string): Promise<string> {

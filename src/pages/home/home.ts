@@ -11,11 +11,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomePage {
 
+  public buttomLoginClicked: boolean = false;
+
   public creds: CredenciaisDTO = {
     email: "", senha: ""
   };
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public menu: MenuController,
     public auth: AuthService) {
 
@@ -24,18 +26,22 @@ export class HomePage {
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }
-  
+
   ionViewDidLeave() {
     this.menu.swipeEnable(true);
   }
 
   login() {
+    this.buttomLoginClicked = true;
     this.auth.authenticate(this.creds)
-    .subscribe(response => {
-      this.auth.successfulLogin(response.headers.get("authorization"));
-      this.navCtrl.setRoot('CategoriasPage');
-    },
-    error => {});
+      .subscribe(response => {
+        this.auth.successfulLogin(response.headers.get("authorization"));
+        this.buttomLoginClicked = false;
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+        error => {
+          this.buttomLoginClicked = false;
+        });
   }
 
 }
