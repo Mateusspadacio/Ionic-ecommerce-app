@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { StorageService } from '../../services/storage.service';
 import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
+import { LoadingControllerHelper } from '../../controllers/loading.controller';
 
 @IonicPage()
 @Component({
   selector: 'page-profile',
-  templateUrl: 'profile.html',
+  templateUrl: 'profile.html'
 })
 export class ProfilePage {
 
@@ -18,10 +19,12 @@ export class ProfilePage {
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public storage: StorageService,
-    public clienteService: ClienteService) {
+    public clienteService: ClienteService,
+    public loading: LoadingControllerHelper) {
   }
 
   ionViewDidLoad() {
+    this.loading.showLoading();
     this.loadingProfile();
   }
 
@@ -33,7 +36,9 @@ export class ProfilePage {
           this.cliente = cliente;
           this.getImageProfile();
         },
-          (error: any) => { })
+        (error: any) => { 
+          this.loading.hideLoadingWithTime(1000);
+        })
     }
 
   }
@@ -42,8 +47,11 @@ export class ProfilePage {
     this.clienteService.findImageUserProfile(this.cliente.id)
       .then((url: string) => {
         this.cliente.imageUrl = url;
+        this.loading.hideLoadingWithTime(1000);
       })
-      .catch((error: any) => { })
+      .catch((error: any) => {
+        this.loading.hideLoadingWithTime(1000);
+      })
   }
 
 }
