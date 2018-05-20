@@ -24,7 +24,7 @@ export class SignupPage {
     private estadoService: EstadoService) {
 
       this.formGroup = this.formBuilder.group({
-        nome: ['', [Validators.required, Validators.min(5), Validators.max(120)]],
+        nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
         email: ['', [Validators.required, Validators.email]],
         tipo: ['1', [Validators.required]],
         cpfOuCnpj: ['', [Validators.required, Validators.min(11), Validators.max(14)]],
@@ -32,9 +32,9 @@ export class SignupPage {
         logradouro: ['', [Validators.required]],
         numero: ['', [Validators.required]],
         complemento: ['', []],
-        bairro: ['', []],
+        bairro: ['', [Validators.required]],
         cep: ['', [Validators.required]],
-        telefone1: ['', [Validators.required]],
+        telefone1: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(11)]],
         telefone2: ['', []],
         telefone3: ['', []],
         estadoId: [null, [Validators.required]],
@@ -75,6 +75,15 @@ export class SignupPage {
       this.updateCidades();
     },
     error => {})
+  }
+
+  preventCharacters(evt: any) {
+    let k = evt.keyCode;
+
+    if (k == 189 || k == 69 || k == 188 || k == 190) {
+      evt.stopPropagation();
+      evt.preventDefault();
+    }
   }
 
 }
