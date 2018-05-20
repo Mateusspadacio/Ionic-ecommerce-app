@@ -17,15 +17,16 @@ export class ProdutoService {
     public findImages(produtos: ProdutoDTO[]): Promise<ProdutoDTO[]> {
         return new Promise((resolve, reject) => {
             produtos.forEach(p => {
-                this.getImage(p);
+                this.getImage(p, true);
             });
             resolve(produtos);
         });
     }
 
-    private getImage(produto: ProdutoDTO): void {
-        firebase.storage().ref()
-            .child(`products/prod${produto.id}.jpg`)
+    public getImage(produto: ProdutoDTO, isSmall: boolean = true): Promise<any> {
+        let img = `prod${produto.id}${isSmall ? "-small" : ""}.jpg`
+        return firebase.storage().ref()
+            .child(`products/${img}`)
             .getDownloadURL()
             .then((url: string) => {
                 produto.imageUrl = url;

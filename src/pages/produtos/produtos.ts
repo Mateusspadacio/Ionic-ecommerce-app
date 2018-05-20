@@ -28,6 +28,11 @@ export class ProdutosPage {
 
   private loadingProdutos(): void {
     this.categoria = this.navParams.get('categoria');
+    if (this.categoria == undefined) {
+      this.redirectIfUndefined();
+      return;
+    }
+
     this.produtoService.findByCategoria(this.categoria.id)
     .subscribe((items: any) => {
       this.items = items.content;
@@ -37,9 +42,18 @@ export class ProdutosPage {
         this.loading.hideLoadingWithTime(1000);
       })
       .catch((error) => {
-        this.loading.hideLoadingWithTime(1000);
+        this.loading.hideLoading();
       })
     })
+  }
+
+  openProdutoDetail(item: ProdutoDTO): void {
+    this.navCtrl.push('ProdutoDetailPage', {produto: item});
+  }
+
+  private redirectIfUndefined(): void {
+    this.loading.hideLoading();
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
 }
