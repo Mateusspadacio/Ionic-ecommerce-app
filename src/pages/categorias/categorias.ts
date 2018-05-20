@@ -36,4 +36,9 @@ export class CategoriasPage {
         });
   }
 
+
+  showProdutos(categoriaDTO: CategoriaDTO): void {
+    this.navCtrl.push('ProdutosPage', {categoria: categoriaDTO});
+  }
+
 }

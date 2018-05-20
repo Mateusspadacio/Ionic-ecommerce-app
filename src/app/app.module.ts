@@ -15,6 +15,7 @@ import { ClienteService } from '../services/domain/cliente.service';
 import { LoadingControllerHelper } from '../controllers/loading.controller';
 import { AuthInterceptorProvider } from '../interceptors/auth-interceptor';
 import { ToastControllerHelper } from '../controllers/toast.controller';
+import { ProdutoService } from '../services/domain/produto.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ToastControllerHelper } from '../controllers/toast.controller';
     StorageService,
     ClienteService,
     LoadingControllerHelper,
-    ToastControllerHelper
+    ToastControllerHelper,
+    ProdutoService
   ]
 })
 export class AppModule {}
