@@ -19,14 +19,33 @@
       <h2>{{item.produto.nome}}</h2>
       <p>{{item.produto.preco | currency:'BRL':true}}</p>
       <ion-row nowrap>
-        <button ion-button small>
+        <button ion-fab mini (click)="decreaseQuantity(item.produto)">
           <ion-icon name="remove"></ion-icon>
         </button>
-        <p style="padding: 0 5px 0 5px;">{{item.quantidade}}</p>
-        <button ion-button small>
+        <p class="quantidade-style">{{item.quantidade}}</p>
+        <button ion-fab mini (click)="increaseQuantity(item.produto)">
           <ion-icon name="add"></ion-icon>
         </button>
       </ion-row>
-    </ion-item>
+      <ion-icon name="trash" color="danger" item-end (click)="removeProduto(item.produto)"></ion-icon>
+    </ion-item><br>
+    <div *ngIf="total() > 0; else noItems">
+      <h2 text-right>Total: {{total() | currency:'BRL':true}}</h2>
+      <button ion-button block>
+        Finalizar Compra
+      </button>
+    </div>
+    <ng-template #noItems>
+      <h3 text-center>Carrinho Vazio</h3>
+      <ion-row justify-content-center>
+        <ion-icon name="cart" style="zoom:4.0;"></ion-icon>
+      </ion-row>
+    </ng-template>
   </ion-list>
 </ion-content>
+
+<ion-footer no-shadow>
+  <ion-toolbar position="bottom">
+    <button type="button" style="background: orange;" ion-button full (click)="continuarComprando()">Continuar Comprando</button>
+  </ion-toolbar>
+</ion-footer>

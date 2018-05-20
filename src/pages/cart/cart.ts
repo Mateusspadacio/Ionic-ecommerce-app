@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Cart } from '../../models/cart';
 import { CartService } from '../../services/domain/cart.service';
 import { ProdutoDTO } from '../../models/produto.dto';
+import { CartItem } from '../../models/cart-item';
 
 @IonicPage()
 @Component({
@@ -24,6 +25,26 @@ export class CartPage {
 
   private loadingCart(): void {
     this.cart = this.cartService.getCart();
+  }
+
+  removeProduto(produto: ProdutoDTO): void {
+    this.cart = this.cartService.removeProduto(produto);
+  }
+
+  increaseQuantity(produto: ProdutoDTO): void {
+    this.cart = this.cartService.increaseQuantity(produto);
+  }
+
+  decreaseQuantity(produto: ProdutoDTO): void {
+    this.cart = this.cartService.decreaseQuantity(produto);
+  }
+
+  total(): number {
+    return this.cartService.total();
+  }
+
+  continuarComprando(): void {
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
 }
