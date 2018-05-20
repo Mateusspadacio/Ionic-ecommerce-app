@@ -4,6 +4,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { ClienteDTO } from '../../models/cliente.dto';
+import { AuthService } from '../../services/auth.service';
+import { CredenciaisDTO } from '../../models/credenciais.dto';
+import { FieldMessage } from '../../models/field.message';
 
 @IonicPage()
 @Component({
@@ -16,12 +21,15 @@ export class SignupPage {
 
   private estadosList: EstadoDTO[] = [];
   private cidadesList: CidadeDTO[] = [];
+  private isButtonClicked: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams, 
     private menu: MenuController,
     private formBuilder: FormBuilder,
-    private estadoService: EstadoService) {
+    private estadoService: EstadoService,
+    public clienteService: ClienteService,
+    public auth: AuthService) {
 
       this.formGroup = this.formBuilder.group({
         nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -54,8 +62,31 @@ export class SignupPage {
     this.menu.swipeEnable(true);
   }
 
-  signupUser() {
-    console.log(this.formGroup)
+  signupUser(): void {
+    this.isButtonClicked = true;
+    let cliente: ClienteDTO = this.formGroup.value;
+
+    this.clienteService.save(cliente)
+    .subscribe(() => {
+      let creds: CredenciaisDTO = {email: this.formGroup.value.email, senha: this.formGroup.value.senha}
+      this.auth.authenticate(creds)
+      .subscribe((response: any) => {
+        this.redirect(response);
+      },
+      error => {
+        this.isButtonClicked = false;
+      });
+    },
+    error => {
+      this.isButtonClicked = false;
+      this.showErrors(error.errors);
+    });
+  }
+
+  private redirect(response: any): void {
+    this.isButtonClicked = false;
+    this.auth.successfulLogin(response.headers.get('authorization'));
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
   updateCidades(): void {
@@ -77,13 +108,20 @@ export class SignupPage {
     error => {})
   }
 
-  preventCharacters(evt: any) {
+  preventCharacters(evt: any): void {
     let k = evt.keyCode;
 
     if (k == 189 || k == 69 || k == 188 || k == 190) {
       evt.stopPropagation();
       evt.preventDefault();
     }
+  }
+
+  private showErrors(fieldMessage: FieldMessage[]): void {
+    console.log(fieldMessage)
+    fieldMessage.forEach(fm => {
+      this.formGroup.controls[fm.fieldName].markAsPending();
+    })
   }
 
 }

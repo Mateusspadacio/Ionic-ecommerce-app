@@ -51,6 +51,10 @@ ion-toast.error .toast-wrapper {
   background: rgb(220, 22, 1);
 }
 
+.toast-message {
+  white-space: pre;
+}
+
 $colors: (
   primary:    #488aff,
   secondary:  #32db64,

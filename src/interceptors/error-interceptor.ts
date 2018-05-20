@@ -5,6 +5,7 @@ import { StorageService } from "../services/storage.service";
 import { ToastConfig } from "../config/toast.config";
 import { ToastController } from "ionic-angular";
 import { ToastControllerHelper } from "../controllers/toast.controller";
+import { FieldMessage } from "../models/field.message";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -25,17 +26,19 @@ export class ErrorInterceptor implements HttpInterceptor {
                     errorObj = JSON.parse(errorObj);
                 }
 
-                console.log(errorObj.status)
                 if (errorObj.status == undefined) {
                     this.handleNoConection();
                 }
-
+                console.log(errorObj.status)
                 switch (errorObj.status) {
                     case 401:
                         this.handle401(errorObj);
                         break;
                     case 403:
                         this.handle403();
+                        break;
+                    case 422:
+                        this.handle422(errorObj.errors);
                         break;
                     default:
                         this.handleDefaultError(errorObj);
@@ -53,6 +56,15 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     private handle401(errorObj: any): void {
         this.showToast('E-mail ou senha inválidos');
+    }
+
+    private handle422(fieldMessage: FieldMessage[]): void {
+        let message = "";
+        fieldMessage.forEach(fm => {
+            message += fm.message + "\n";
+        })
+
+        this.toast.showToast(new ToastConfig(message, undefined, "bottom", ['error'], true));
     }
 
     private handleNoConection(): void {

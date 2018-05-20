@@ -11,10 +11,10 @@ export class EstadoService {
     constructor(private http: HttpClient){}
 
     public findAll(): Observable<EstadoDTO[]> {
-        return this.http.get<EstadoDTO[]>(`${API_CONFIG.baseUrl}/estados`);
+        return this.http.get<EstadoDTO[]>(`${API_CONFIG.baseUrl}/estados`).retry(20);
     }
 
     public findCidadesByEstado(id: string): Observable<CidadeDTO[]> {
-        return this.http.get<CidadeDTO[]>(`${API_CONFIG.baseUrl}/estados/${id}/cidades`);
+        return this.http.get<CidadeDTO[]>(`${API_CONFIG.baseUrl}/estados/${id}/cidades`).retry(20);
     }
 }

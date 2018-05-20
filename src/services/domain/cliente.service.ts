@@ -26,9 +26,15 @@ export class ClienteService {
             .then((url: string) => {
                 resolve(url);
             })
-            .catch((error: any) => {});
+            .catch((error: any) => {
+                resolve("");
+            });
         });
     }
 
+    save(cliente: ClienteDTO): Observable<any> {
+        return this.http.post(`${API_CONFIG.baseUrl}/clientes`, cliente, 
+    {observe: 'response', responseType: 'text'});
+    }
 
 }
