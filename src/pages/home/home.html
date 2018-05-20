@@ -3,7 +3,7 @@
 
   <img src="assets/imgs/tela-inicial.png" alt="logo" >
 
-  <form (ngSubmit)="login()">
+  <form (ngSubmit)="login(); $event.preventDefault()">
     <ion-item>
       <ion-label floating>Email</ion-label>
       <ion-input [(ngModel)]="creds.email" name="email" type="email"></ion-input>
@@ -20,5 +20,5 @@
         </ion-row>
     </ng-template>
   </form>
-  <button ion-button outline block>Registrar</button>
+  <button ion-button outline block (click)="signup()">Registrar</button>
 </ion-content>

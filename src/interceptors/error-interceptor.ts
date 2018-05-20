@@ -4,12 +4,13 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS
 import { StorageService } from "../services/storage.service";
 import { ToastConfig } from "../config/toast.config";
 import { ToastController } from "ionic-angular";
+import { ToastControllerHelper } from "../controllers/toast.controller";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
     constructor(private storage: StorageService,
-        private toastCtrl: ToastController) { }
+                private toast: ToastControllerHelper) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req)
@@ -63,15 +64,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 
     private showToast(message: string): void {
-        let toast = this.toastCtrl.create({
-            message: message,
-            position: 'bottom',
-            showCloseButton: true,
-            closeButtonText: "Fechar",
-            cssClass: "error"
-        });
-
-        toast.present();
+        this.toast.showToast(new ToastConfig(message, undefined, "bottom", ['error'], true));
     }
 }
 

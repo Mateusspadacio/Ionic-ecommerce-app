@@ -17,10 +17,11 @@ export class MyApp implements OnInit {
 
   pages: Array<{ title: string, component: string }>;
 
+  private email: string;
+
   constructor(public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    public storage: StorageService,
     public auth: AuthService) {
     this.initializeApp();
 
@@ -68,7 +69,4 @@ export class MyApp implements OnInit {
 
   }
 
-  openProfile() {
-    this.nav.setRoot('ProfilePage');
-  }
 }

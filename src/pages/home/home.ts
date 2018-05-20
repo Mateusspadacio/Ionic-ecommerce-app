@@ -60,4 +60,9 @@ export class HomePage {
     this.navCtrl.setRoot('CategoriasPage');
   }
 
+  signup(): void {
+    //this.navCtrl.setRoot('SignupPage');
+    this.navCtrl.push('SignupPage');
+  }
+
 }
