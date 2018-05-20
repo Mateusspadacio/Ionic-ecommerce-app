@@ -27,7 +27,7 @@ export class SignupPage {
         nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
         email: ['', [Validators.required, Validators.email]],
         tipo: ['1', [Validators.required]],
-        cpfOuCnpj: ['', [Validators.required, Validators.min(11), Validators.max(14)]],
+        cpfOuCnpj: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
         senha: ['', [Validators.required]],
         logradouro: ['', [Validators.required]],
         numero: ['', [Validators.required]],
@@ -62,7 +62,7 @@ export class SignupPage {
     this.estadoService.findCidadesByEstado(this.formGroup.value.estadoId)
     .subscribe((cidades: CidadeDTO[]) => {
       this.cidadesList = cidades;
-      this.formGroup.controls.cidadeId.setValue(this.cidadesList[0].id);
+      this.formGroup.controls.cidadeId.setValue(null);
     },
     error => {})
   }

@@ -8,6 +8,7 @@
 
 
 <ion-content padding>
+  <p>Campos Obrigatórios *</p>
   <form [formGroup]="formGroup" (ngSubmit)="signupUser(); $event.preventDefault()">
     <ion-item>
       <ion-label stacked>Nome*</ion-label>
@@ -109,9 +110,6 @@
         <ion-option *ngFor="let cidade of cidadesList" [value]="cidade.id">{{cidade.nome}}</ion-option>
       </ion-select>
     </ion-item>
-    <p *ngIf="formGroup.controls.cidadeId.dirty && formGroup.controls.cidadeId.errors" margin-left>
-      Selecione uma cidade
-    </p>
-    <button ion-button block type="submit">Registrar-se</button>
+    <button ion-button block type="submit" [disabled]="formGroup.invalid">Registrar-se</button>
   </form>
 </ion-content>
