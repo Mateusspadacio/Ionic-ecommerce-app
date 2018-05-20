@@ -1,15 +1,15 @@
 <ion-menu [content]="content">
   <ion-header>
     <ion-toolbar>
-      <h4>Menu</h4>
+      <h4 class="margin-text">Menu</h4>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" [ngClass]="{'sair' : p.title == 'Logout'}">
-        <ion-icon *ngIf="p.title == 'Logout'" name="arrow-back"></ion-icon>
-        {{p.title}}
+        <ion-icon [name]="p.icon"></ion-icon>
+        <span class="margin-text">{{p.title}}</span>
       </button>
     </ion-list>
   </ion-content>

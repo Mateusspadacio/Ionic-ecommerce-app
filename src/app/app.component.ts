@@ -15,7 +15,7 @@ export class MyApp implements OnInit {
 
   rootPage: string = 'HomePage';
 
-  pages: Array<{ title: string, component: string }>;
+  pages: Array<{ title: string, component: string, icon: string }>;
 
   private email: string;
 
@@ -27,10 +27,10 @@ export class MyApp implements OnInit {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: 'HomePage' },
-      { title: 'Perfil', component: 'ProfilePage' },
-      { title: 'Categorias', component: 'CategoriasPage' },
-      { title: 'Logout', component: '' }
+      { title: 'Perfil', component: 'ProfilePage', icon: 'person' },
+      { title: 'Categorias', component: 'CategoriasPage', icon: 'list-box' },
+      { title: 'Carrinho', component: 'CartPage', icon: 'cart'},
+      { title: 'Logout', component: '', icon: 'arrow-back' }
     ];
 
   }
