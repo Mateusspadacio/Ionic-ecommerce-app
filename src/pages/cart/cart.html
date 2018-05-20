@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Carrinho</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let item of cart.items">
+      <ion-thumbnail item-start>
+        <img [src]="item.produto.imageUrl || 'assets/imgs/prod.jpg'">
+      </ion-thumbnail>
+      <h2>{{item.produto.nome}}</h2>
+      <p>{{item.produto.preco | currency:'BRL':true}}</p>
+      <ion-row nowrap>
+        <button ion-button small>
+          <ion-icon name="remove"></ion-icon>
+        </button>
+        <p style="padding: 0 5px 0 5px;">{{item.quantidade}}</p>
+        <button ion-button small>
+          <ion-icon name="add"></ion-icon>
+        </button>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+</ion-content>

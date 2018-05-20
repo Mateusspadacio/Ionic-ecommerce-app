@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ProdutoDTO } from '../../models/produto.dto';
 import { ProdutoService } from '../../services/domain/produto.service';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
+import { CartService } from '../../services/domain/cart.service';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,8 @@ export class ProdutoDetailPage {
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public produtoService: ProdutoService,
-    public loading: LoadingControllerHelper) {
+    public loading: LoadingControllerHelper,
+    public cartService: CartService) {
   }
 
   ionViewDidLoad() {
@@ -27,6 +29,13 @@ export class ProdutoDetailPage {
       this.loading.hideLoadingWithTime(1000);
     })
     .catch((error) => {this.loading.hideLoading()});
+  }
+
+  addingProduto(): void {
+    if (this.produto) {
+      this.cartService.addProduto(this.produto);
+      this.navCtrl.setRoot('CartPage');
+    }
   }
 
 }
