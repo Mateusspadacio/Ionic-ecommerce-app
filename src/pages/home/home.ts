@@ -61,7 +61,6 @@ export class HomePage {
   }
 
   signup(): void {
-    //this.navCtrl.setRoot('SignupPage');
     this.navCtrl.push('SignupPage');
   }
 

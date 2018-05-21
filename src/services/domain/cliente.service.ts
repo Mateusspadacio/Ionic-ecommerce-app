@@ -17,6 +17,11 @@ export class ClienteService {
             `${API_CONFIG.baseUrl}/clientes/email?value=${email}`)
     }
 
+    findById(id: string) {
+        return this.http.get(
+            `${API_CONFIG.baseUrl}/clientes/${id}`)
+    }
+
     findImageUserProfile(id: string): Promise<string> {
         return new Promise((resolve, reject) => {
             let imageProfile = `cp${id}.jpg`;

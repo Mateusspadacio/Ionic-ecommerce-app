@@ -24,7 +24,7 @@ export class StorageService {
     }
 
     getCart(): Cart {
-        let cart = localStorage.getItem(STORAGE_KEYS.cart);
+        let cart = localStorage.getItem(STORAGE_KEYS.cart + "_" + this.emailBase64());
         if (cart == null) {
             return null;
         } else {
@@ -34,9 +34,17 @@ export class StorageService {
 
     setCart(obj: Cart) {
         if (obj == null) {
-            localStorage.removeItem(STORAGE_KEYS.cart);
+            localStorage.removeItem(STORAGE_KEYS.cart + "_" + this.emailBase64());
         } else {
-            localStorage.setItem(STORAGE_KEYS.cart, JSON.stringify(obj));
+            localStorage.setItem(STORAGE_KEYS.cart + "_" + this.emailBase64(), JSON.stringify(obj));
         }
+    }
+
+    private emailBase64(): string {
+        if (!this.getLocalUser()) {
+            return "";
+        }
+
+        return btoa(this.getLocalUser().email);
     }
 }

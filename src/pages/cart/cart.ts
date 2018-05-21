@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { Cart } from '../../models/cart';
 import { CartService } from '../../services/domain/cart.service';
 import { ProdutoDTO } from '../../models/produto.dto';
@@ -16,7 +16,16 @@ export class CartPage {
 
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
+    public menu: MenuController,
     public cartService: CartService) {
+  }
+
+  ionViewWillEnter() {
+    this.menu.swipeEnable(false);
+  }
+
+  ionViewDidLeave() {
+    this.menu.swipeEnable(true);
   }
 
   ionViewDidLoad() {
