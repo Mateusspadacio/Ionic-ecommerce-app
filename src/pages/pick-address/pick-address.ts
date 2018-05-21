@@ -5,6 +5,8 @@ import { StorageService } from '../../services/storage.service';
 import { ClienteService } from '../../services/domain/cliente.service';
 import { ClienteDTO } from '../../models/cliente.dto';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
+import { PedidoDTO } from '../../models/pedido.dto';
+import { CartService } from '../../services/domain/cart.service';
 
 
 @IonicPage()
@@ -16,11 +18,14 @@ export class PickAddressPage {
 
   items: EnderecoDTO[] = [];
 
+  pedido: PedidoDTO;
+
   constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public storage: StorageService,
     public clienteService: ClienteService,
-    public loading: LoadingControllerHelper) {
+    public loading: LoadingControllerHelper,
+    public cartService: CartService) {
   }
 
   ionViewCanEnter() {
@@ -36,6 +41,13 @@ export class PickAddressPage {
       this.clienteService.findByEmail(localUser.email)
         .subscribe((response) => {
           this.items = response['enderecos'];
+
+          this.pedido = {
+            cliente: {id: response['id']},
+            enderecoDeEntrega: {id: ''},
+            pagamento: {numeroParcelas: 0, "@type": ''},
+            itens: this.cartService.cartItemsToItemPedido()
+          }
         },
           (error: any) => {
             if (error.status == 403) {
@@ -54,6 +66,11 @@ export class PickAddressPage {
   private redirectIfInvalid(): void {
     this.loading.hideLoading();
     this.navCtrl.setRoot('HomePage');
+  }
+
+  goFormOfPayment(id: string): void {
+    this.pedido.enderecoDeEntrega.id = id;
+    console.log(this.pedido)
   }
 
 }
