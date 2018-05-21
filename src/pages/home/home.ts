@@ -23,7 +23,7 @@ export class HomePage {
     public auth: AuthService) {
 
   }
-
+  
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }

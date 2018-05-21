@@ -70,7 +70,7 @@ export class PickAddressPage {
 
   goFormOfPayment(id: string): void {
     this.pedido.enderecoDeEntrega.id = id;
-    console.log(this.pedido)
+    this.navCtrl.push('PaymentPage', {pedido: this.pedido});
   }
 
 }
