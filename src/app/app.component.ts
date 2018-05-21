@@ -11,6 +11,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: 'app.html'
 })
 export class MyApp implements OnInit {
+
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string = 'HomePage';

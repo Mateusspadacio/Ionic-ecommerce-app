@@ -31,7 +31,7 @@
     </ion-item><br>
     <div *ngIf="total() > 0; else noItems">
       <h2 text-right>Total: {{total() | currency:'BRL':true}}</h2>
-      <button ion-button block>
+      <button ion-button block (click)="checkout()">
         Finalizar Compra
       </button>
     </div>
@@ -46,6 +46,6 @@
 
 <ion-footer no-shadow>
   <ion-toolbar position="bottom">
-    <button type="button" style="background: orange;" ion-button full (click)="continuarComprando()">Continuar Comprando</button>
+    <button type="button" style="background: orange;" ion-button full (click)="goOn()">Continuar Comprando</button>
   </ion-toolbar>
 </ion-footer>

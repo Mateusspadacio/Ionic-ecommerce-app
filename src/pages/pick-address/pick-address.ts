@@ -1,35 +1,30 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { EnderecoDTO } from '../../models/endereco.dto';
 import { StorageService } from '../../services/storage.service';
-import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
+import { ClienteDTO } from '../../models/cliente.dto';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
 
 
 @IonicPage()
 @Component({
-  selector: 'page-profile',
-  templateUrl: 'profile.html'
+  selector: 'page-pick-address',
+  templateUrl: 'pick-address.html',
 })
-export class ProfilePage {
+export class PickAddressPage {
 
-  cliente: ClienteDTO = {
-    email: '', nome: '', id: ''
-  };
+  items: EnderecoDTO[] = [];
 
-  constructor(public navCtrl: NavController,
+  constructor(public navCtrl: NavController, 
     public navParams: NavParams,
     public storage: StorageService,
     public clienteService: ClienteService,
     public loading: LoadingControllerHelper) {
   }
 
-  ionViewCanEnter(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.loading.showLoading();
-      this.loadingProfile();
-      resolve();
-    });
+  ionViewCanEnter() {
+    this.loadingProfile();
   }
 
   ionViewDidLoad() {
@@ -39,12 +34,10 @@ export class ProfilePage {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
-        .subscribe((cliente) => {
-          this.cliente = cliente as ClienteDTO;
-          this.getImageProfile();
+        .subscribe((response) => {
+          this.items = response['enderecos'];
         },
           (error: any) => {
-
             if (error.status == 403) {
               this.redirectIfInvalid();
             } else {
@@ -56,17 +49,6 @@ export class ProfilePage {
       this.redirectIfInvalid();
     }
 
-  }
-
-  private getImageProfile(): void {
-    this.clienteService.findImageUserProfile(this.cliente.id)
-      .then((url: string) => {
-        this.cliente.imageUrl = url;
-        this.loading.hideLoadingWithTime(1000);
-      })
-      .catch((error: any) => {
-        this.loading.hideLoadingWithTime(1000);
-      })
   }
 
   private redirectIfInvalid(): void {

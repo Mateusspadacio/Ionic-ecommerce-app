@@ -43,8 +43,12 @@ export class CartPage {
     return this.cartService.total();
   }
 
-  continuarComprando(): void {
+  goOn(): void {
     this.navCtrl.setRoot('CategoriasPage');
+  }
+
+  checkout(): void {
+    this.navCtrl.push('PickAddressPage');
   }
 
 }
