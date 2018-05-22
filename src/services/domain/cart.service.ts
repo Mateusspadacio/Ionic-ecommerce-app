@@ -26,7 +26,7 @@ export class CartService {
 
         return cart;
     }
-
+    
     addProduto(produto: ProdutoDTO): Cart {
         if (!produto) {
             return;

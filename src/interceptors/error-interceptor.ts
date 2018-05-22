@@ -64,11 +64,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             message += fm.message + "\n";
         })
 
-        this.toast.showToast(new ToastConfig(message, undefined, "bottom", ['error'], true));
+        this.showToast(message);
     }
 
     private handleNoConection(): void {
-        this.showToast('Ocorreu um erro ao tentar comunicar com o servidor, verifique sua conexão com a internet');
+        this.showToast('Ocorreu um erro ao tentar\ncomunicar com o servidor');
     }
 
     private handleDefaultError(objError: any): void {

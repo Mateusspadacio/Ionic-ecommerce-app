@@ -33,13 +33,11 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.buttomLoginClicked = true;
     this.auth.refreshToken()
       .subscribe(response => {
         this.redirect(response);
       },
         error => {
-          this.buttomLoginClicked = false;
         });
   }
 
