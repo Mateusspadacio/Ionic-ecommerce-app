@@ -28,7 +28,9 @@ export class CategoriaService {
                             .catch((error: any) => {})
                     });
                     resolve(categoriasDTO);
-                });
+                }).catch((error) => {
+                    reject(error);
+                })
         })
     }
 }

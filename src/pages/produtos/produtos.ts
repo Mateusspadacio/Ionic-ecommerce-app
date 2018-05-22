@@ -15,6 +15,9 @@ export class ProdutosPage {
   items: ProdutoDTO[] = [];
   categoria: CategoriaDTO = { id: '', nome: '', urlImage: '' };
   refresher: any;
+  infiniteScroll: any;
+  page: number = 0;
+  totalPages: number = 0;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -27,6 +30,25 @@ export class ProdutosPage {
     this.loadingProdutos();
   }
 
+  openProdutoDetail(item: ProdutoDTO) {
+    this.navCtrl.push('ProdutoDetailPage', { produto: item });
+  }
+
+  doRefresh(refresher) {
+    this.page = 0;
+    this.items = [];
+    this.refresher = refresher;
+    this.loadingProdutos();
+  }
+
+  doInfinite(infiniteScroll) {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.infiniteScroll = infiniteScroll;
+      this.loadingProdutos();
+    }
+  }
+
   private loadingProdutos(): void {
     this.categoria = this.navParams.get('categoria');
     if (this.categoria == undefined) {
@@ -34,40 +56,44 @@ export class ProdutosPage {
       return;
     }
 
-    this.produtoService.findByCategoria(this.categoria.id)
+    this.produtoService.findByCategoria(this.categoria.id, this.page, 10)
       .subscribe((items: any) => {
-        this.items = items.content;
-        this.produtoService.findImages(this.items)
+        this.totalPages = items.totalPages;
+        let startIndex = this.items.length;
+        this.items = this.items.concat(items.content);
+        this.produtoService.findImages(this.items, startIndex)
           .then((items) => {
             this.items = items;
             this.loading.hideLoadingWithTime(1000);
             this.completeRefresher();
+            this.completeInfinityScroll();
           })
           .catch((error) => {
             this.loading.hideLoading();
             this.completeRefresher();
+            this.completeInfinityScroll();
           })
-      })
-  }
-
-  openProdutoDetail(item: ProdutoDTO): void {
-    this.navCtrl.push('ProdutoDetailPage', { produto: item });
-  }
-
-  private redirectIfUndefined(): void {
-    this.loading.hideLoading();
-    this.navCtrl.setRoot('CategoriasPage');
-  }
-
-  doRefresh(refresher) {
-    this.refresher = refresher;
-    this.loadingProdutos();
+      },
+      error => {
+        this.loading.hideLoading();
+      });
   }
 
   private completeRefresher(): void {
     if (this.refresher != undefined) {
       this.refresher.complete();
-    } 
+    }
+  }
+
+  private completeInfinityScroll(): void {
+    if (this.infiniteScroll != undefined) {
+      this.infiniteScroll.complete();
+    }
+  }
+
+  private redirectIfUndefined(): void {
+    this.loading.hideLoading();
+    this.navCtrl.setRoot('CategoriasPage');
   }
 
 }

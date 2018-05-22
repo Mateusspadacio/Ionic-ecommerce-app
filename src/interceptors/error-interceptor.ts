@@ -23,7 +23,9 @@ export class ErrorInterceptor implements HttpInterceptor {
                 }
     
                 if (!errorObj.status) {
-                    errorObj = JSON.parse(errorObj);
+                    try {
+                        errorObj = JSON.parse(errorObj);
+                    } catch(error) {}
                 }
 
                 if (errorObj.status == undefined) {

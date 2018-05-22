@@ -10,15 +10,17 @@ export class ProdutoService {
 
     constructor(public http: HttpClient) { }
 
-    public findByCategoria(id: string): Observable<Object> {
-        return this.http.get<Object>(`${API_CONFIG.baseUrl}/produtos?categorias=${id}`).retry(20);
+    public findByCategoria(id: string, page: number = 0, linesPerPage: number = 24): Observable<Object> {
+        return this.http.get<Object>(`${API_CONFIG.baseUrl}/produtos?categorias=${id}&page=${page}&linesPerPage=${linesPerPage}`).retry(20);
     }
 
-    public findImages(produtos: ProdutoDTO[]): Promise<ProdutoDTO[]> {
+    public findImages(produtos: ProdutoDTO[], startIndex: number = 0): Promise<ProdutoDTO[]> {
+        console.log(startIndex + " - " + produtos.length)
         return new Promise((resolve, reject) => {
-            produtos.forEach(p => {
-                this.getImage(p, true);
-            });
+            for (let i = startIndex; i < produtos.length; i++) {
+                this.getImage(produtos[i], true);
+            }
+            
             resolve(produtos);
         });
     }

@@ -30,10 +30,10 @@ export class CategoriasPage {
       .then((categorias: CategoriaDTO[]) => {
         this.categoriasDTO = categorias;
         this.loading.hideLoadingWithTime(1000);
-      },
-        (error: Error) => {
-          this.loading.hideLoadingWithTime(1000);
-        });
+      })
+      .catch((error) => {
+        this.loading.hideLoading();
+      })
   }
 
 

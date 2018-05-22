@@ -12,6 +12,10 @@ export class ToastControllerHelper {
     public showToast(toastConfiguration: ToastConfig = new ToastConfig()): void {
         this.toastConfig = toastConfiguration;
 
+        if (this.toastConfig.message == "") {
+            return;
+        }
+
         if (this.toastConfig.hasCloseButtom) {
             this.toastConfig.duration = undefined;
         }
