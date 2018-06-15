@@ -1,8 +1,44 @@
 page-profile {
     .circle {
-        width: 60%;
+        width: 250px;
+        height: 250px;
         border-radius: 100%;
         margin: 25px auto 0 auto;
+    }
+
+    ion-footer {
+        height: 250px;
+        background-color: white;
+    }
+
+    .grad-camera {
+        background: linear-gradient(to right, red, orange, green, blue);
+    }
+
+    .grad-galeria {
+        background: linear-gradient(to right, purple ,blue);
+    }
+
+    .overlay {
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+    }
+
+    .label-align {
+        padding-left: 3px;
+    }
+
+    .file-input {
+        opacity: 0;
+        position: absolute;
     }
 
 }

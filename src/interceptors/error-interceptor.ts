@@ -28,9 +28,6 @@ export class ErrorInterceptor implements HttpInterceptor {
                     } catch(error) {}
                 }
 
-                if (errorObj.status == undefined) {
-                    this.handleNoConection();
-                }
                 console.log(errorObj.status)
                 switch (errorObj.status) {
                     case 401:
@@ -67,10 +64,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         })
 
         this.showToast(message);
-    }
-
-    private handleNoConection(): void {
-        this.showToast('Ocorreu um erro ao tentar\ncomunicar com o servidor');
     }
 
     private handleDefaultError(objError: any): void {

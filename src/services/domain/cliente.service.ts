@@ -10,7 +10,7 @@ import * as firebase from 'firebase';
 export class ClienteService {
 
     constructor(public http: HttpClient,
-                public storage: StorageService){}
+        public storage: StorageService) { }
 
     findByEmail(email: string) {
         return this.http.get(
@@ -26,20 +26,27 @@ export class ClienteService {
         return new Promise((resolve, reject) => {
             let imageProfile = `cp${id}.jpg`;
             firebase.storage().ref()
-            .child(`profiles/${imageProfile}`)
-            .getDownloadURL()
-            .then((url: string) => {
-                resolve(url);
-            })
-            .catch((error: any) => {
-                resolve("");
-            });
+                .child(`profiles/${imageProfile}`)
+                .getDownloadURL()
+                .then((url: string) => {
+                    resolve(url);
+                })
+                .catch((error: any) => {
+                    resolve("");
+                });
         });
     }
 
     save(cliente: ClienteDTO): Observable<any> {
-        return this.http.post(`${API_CONFIG.baseUrl}/clientes`, cliente, 
-    {observe: 'response', responseType: 'text'});
+        return this.http.post(`${API_CONFIG.baseUrl}/clientes`, cliente,
+            { observe: 'response', responseType: 'text' });
+    }
+
+    uploadPicture(picture, id: string) {
+        let imageProfile = `cp${id}.jpg`;
+        return firebase.storage().ref()
+            .child(`profiles/${imageProfile}`)
+            .put(picture);
     }
 
 }

@@ -23,6 +23,19 @@ export class HomePage {
     public auth: AuthService) {
 
   }
+
+  ionViewCanEnter(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.auth.refreshToken().toPromise()
+      .then(response => {
+        this.redirect(response);
+        resolve();
+      })
+      .catch(error => {
+        resolve();
+      });
+    })
+  }
   
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
@@ -33,12 +46,6 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.auth.refreshToken()
-      .subscribe(response => {
-        this.redirect(response);
-      },
-        error => {
-        });
   }
 
   login() {

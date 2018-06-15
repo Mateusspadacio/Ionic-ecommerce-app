@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 export class LoadingControllerHelper {
 
     private loading: any;
+    private simpleLoading: any;
 
     constructor(private loadingCtrl: LoadingController){
         this.initComponent();
@@ -16,7 +17,6 @@ export class LoadingControllerHelper {
             cssClass: "my-loading",
             showBackdrop: false
           });
-
     }
 
     public showLoading(): void {
@@ -34,6 +34,20 @@ export class LoadingControllerHelper {
 
     public showLoadingWithTime(time: number): void {
         setTimeout(() => this.showLoading(), time);
+    }
+
+    public initSimpleLoading(): void {
+        this.simpleLoading = this.loadingCtrl.create({
+            content: ''
+          });
+    }
+
+    public showSimpleLoading(): void {
+        this.simpleLoading.present();
+    }
+
+    public hideSimpleLoading(): void {
+        this.simpleLoading.dismiss();
     }
 
 }
