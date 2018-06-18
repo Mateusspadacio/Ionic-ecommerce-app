@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CartService } from '../../services/domain/cart.service';
 import { ProdutoDTO } from '../../models/produto.dto';
 import { ProdutoService } from '../../services/domain/produto.service';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
-import { CartService } from '../../services/domain/cart.service';
 
 @IonicPage()
 @Component({
@@ -14,7 +14,7 @@ export class ProdutoDetailPage {
 
   produto: ProdutoDTO;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public produtoService: ProdutoService,
     public loading: LoadingControllerHelper,

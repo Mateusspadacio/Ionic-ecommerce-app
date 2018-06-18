@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { PedidoDTO } from '../../models/pedido.dto';
+import { trigger, animate, style, transition, state } from "@angular/animations";
 import { CartItem } from '../../models/cart-item';
 import { CartService } from '../../services/domain/cart.service';
 import { ClienteDTO } from '../../models/cliente.dto';
-import { EnderecoDTO } from '../../models/endereco.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
+import { EnderecoDTO } from '../../models/endereco.dto';
+import { PedidoDTO } from '../../models/pedido.dto';
 import { PedidoService } from '../../services/domain/pedido.service';
 import { ToastControllerHelper } from '../../controllers/toast.controller';
 import { ToastConfig } from '../../config/toast.config';
-import { trigger, animate, style, transition, state } from "@angular/animations";
 
 
 @IonicPage()
@@ -44,14 +44,14 @@ export class OrderConfirmationPage {
   timeOutId: number;
   isButtonClicked: boolean = false;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public cartService: CartService,
     public clienteService: ClienteService,
     public pedidoService: PedidoService,
     public toast: ToastControllerHelper) {
     this.pedido = this.navParams.get('pedido');
-    
+
   }
 
   ionViewDidLoad() {
@@ -90,7 +90,7 @@ export class OrderConfirmationPage {
     this.cartService.createOrClearCart();
     this.isButtonClicked = false;
     this.startEffect();
-  }, 
+  },
   error => {
     if (error.status == 403) {
       this.toast.showToast(new ToastConfig('Falha na autenticação', undefined, "bottom", ['error'], true));

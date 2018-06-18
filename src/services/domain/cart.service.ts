@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
-import { StorageService } from "../storage.service";
 import { Cart } from "../../models/cart";
-import { CartItem } from "../../models/cart-item";
-import { ProdutoDTO } from "../../models/produto.dto";
 import { ItemPedidoDTO } from "../../models/item-pedido.dto";
-import { RefDTO } from "../../models/ref.dto";
+import { ProdutoDTO } from "../../models/produto.dto";
+import { StorageService } from "../storage.service";
 
 @Injectable()
 export class CartService {
@@ -26,7 +24,7 @@ export class CartService {
 
         return cart;
     }
-    
+
     addProduto(produto: ProdutoDTO): Cart {
         if (!produto) {
             return;
@@ -110,7 +108,7 @@ export class CartService {
         let itensPedido: ItemPedidoDTO[] = [];
 
         itensPedido = cart.items.map(i => {return {quantidade: i.quantidade, produto: {id: i.produto.id}}});
-        
+
         return itensPedido;
     }
 

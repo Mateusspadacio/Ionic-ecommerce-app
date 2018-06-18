@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { Cart } from '../../models/cart';
 import { CartService } from '../../services/domain/cart.service';
 import { ProdutoDTO } from '../../models/produto.dto';
-import { CartItem } from '../../models/cart-item';
 
 @IonicPage()
 @Component({
@@ -14,7 +13,7 @@ export class CartPage {
 
   cart: Cart = {items: []};
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public menu: MenuController,
     public cartService: CartService) {

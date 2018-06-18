@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/Rx";
-import { ClienteDTO } from "../../models/cliente.dto";
-import { API_CONFIG } from "../../config/api.config";
-import { StorageService } from "../storage.service";
 import * as firebase from 'firebase';
+import { ClienteDTO } from "../../models/cliente.dto";
+import { StorageService } from "../storage.service";
+import { API_CONFIG } from "../../config/api.config";
 
 @Injectable()
 export class ClienteService {

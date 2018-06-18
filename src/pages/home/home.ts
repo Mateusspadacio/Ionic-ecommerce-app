@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, MenuController } from 'ionic-angular';
-import { CredenciaisDTO } from '../../models/credenciais.dto';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { IonicPage, MenuController, NavController } from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
-import { ToastConfig } from '../../config/toast.config';
+import { CredenciaisDTO } from '../../models/credenciais.dto';
 
 @IonicPage()
 @Component({
@@ -36,7 +34,7 @@ export class HomePage {
       });
     })
   }
-  
+
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
   }

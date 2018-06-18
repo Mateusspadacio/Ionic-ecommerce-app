@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
+import { Cart } from "../models/cart";
 import { LocalUser } from "../models/local_user";
 import { STORAGE_KEYS } from "../config/storage_keys.config";
-import { Cart } from "../models/cart";
 
 @Injectable()
 export class StorageService {

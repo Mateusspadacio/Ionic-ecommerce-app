@@ -1,11 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { Observable } from "rxjs/Rx";
+import { FieldMessage } from "../models/field.message";
 import { StorageService } from "../services/storage.service";
 import { ToastConfig } from "../config/toast.config";
-import { ToastController } from "ionic-angular";
 import { ToastControllerHelper } from "../controllers/toast.controller";
-import { FieldMessage } from "../models/field.message";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -21,7 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (errorObj.error) {
                     errorObj = errorObj.error;
                 }
-    
+
                 if (!errorObj.status) {
                     try {
                         errorObj = JSON.parse(errorObj);

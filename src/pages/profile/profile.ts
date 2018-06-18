@@ -1,16 +1,16 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { Platform } from 'ionic-angular';
-import { StorageService } from '../../services/storage.service';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ClienteDTO } from '../../models/cliente.dto';
 import { ClienteService } from '../../services/domain/cliente.service';
+import { ImageUtilService } from '../../services/image-util.service';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Ng2ImgMaxService } from 'ng2-img-max';
+import { Platform } from 'ionic-angular';
+import { StorageService } from '../../services/storage.service';
 import { ToastControllerHelper } from '../../controllers/toast.controller';
 import { ToastConfig } from '../../config/toast.config';
-import { ImageUtilService } from '../../services/image-util.service';
 
 
 @IonicPage()

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoriaDTO } from '../../models/categoria.dto';
 import { ProdutoDTO } from '../../models/produto.dto';
 import { ProdutoService } from '../../services/domain/produto.service';
-import { CategoriaDTO } from '../../models/categoria.dto';
 import { LoadingControllerHelper } from '../../controllers/loading.controller';
 
 @IonicPage()

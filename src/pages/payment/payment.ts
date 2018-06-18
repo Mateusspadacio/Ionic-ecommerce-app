@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PedidoDTO } from '../../models/pedido.dto';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -16,7 +16,7 @@ export class PaymentPage {
 
   formGroup: FormGroup;
 
-  constructor(public navCtrl: NavController, 
+  constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder) {
 
@@ -29,7 +29,7 @@ export class PaymentPage {
   }
 
   ionViewDidLoad() {
-    
+
   }
 
   nextPage(): void {

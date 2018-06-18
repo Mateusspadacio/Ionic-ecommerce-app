@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { CidadeDTO } from '../../models/cidade.dto';
+import { ClienteDTO } from '../../models/cliente.dto';
+import { ClienteService } from '../../services/domain/cliente.service';
+import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { EstadoService } from '../../services/domain/estado.service';
 import { EstadoDTO } from '../../models/estado.dto';
-import { CidadeDTO } from '../../models/cidade.dto';
-import { ClienteService } from '../../services/domain/cliente.service';
-import { ClienteDTO } from '../../models/cliente.dto';
-import { AuthService } from '../../services/auth.service';
-import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { FieldMessage } from '../../models/field.message';
 
 @IonicPage()
@@ -24,7 +24,7 @@ export class SignupPage {
   private isButtonClicked: boolean = false;
 
   constructor(public navCtrl: NavController,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     private menu: MenuController,
     private formBuilder: FormBuilder,
     private estadoService: EstadoService,

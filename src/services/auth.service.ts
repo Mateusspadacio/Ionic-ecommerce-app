@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
+import { JwtHelper } from "angular2-jwt";
 import { CredenciaisDTO } from "../models/credenciais.dto";
 import { HttpClient } from "@angular/common/http";
-import { API_CONFIG } from "../config/api.config";
 import { LocalUser } from "../models/local_user";
 import { StorageService } from "./storage.service";
-import { JwtHelper } from "angular2-jwt";
+import { API_CONFIG } from "../config/api.config";
 
 @Injectable()
 export class AuthService {
@@ -21,7 +21,7 @@ export class AuthService {
     // o retorno do arquivo é do tipo texto, dessa forma desabilita o parse do angular
 
     authenticate(creds: CredenciaisDTO) {
-        return this.http.post(`${API_CONFIG.baseUrl}/login`, 
+        return this.http.post(`${API_CONFIG.baseUrl}/login`,
         creds,
         {
             observe: 'response',
@@ -30,7 +30,7 @@ export class AuthService {
     }
 
     refreshToken() {
-        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`, 
+        return this.http.post(`${API_CONFIG.baseUrl}/auth/refresh_token`,
         {},
         {
             observe: 'response',

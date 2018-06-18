@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Rx";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { Observable } from "rxjs/Rx";
 import { StorageService } from "../services/storage.service";
 import { API_CONFIG } from "../config/api.config";
 

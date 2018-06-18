@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import * as firebase from 'firebase';
-import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 
 
@@ -20,10 +19,12 @@ export class MyApp implements OnInit {
 
   private email: string;
 
-  constructor(public platform: Platform,
-    public statusBar: StatusBar,
+  constructor(
+    public auth: AuthService,
+    public platform: Platform,
     public splashScreen: SplashScreen,
-    public auth: AuthService) {
+    public statusBar: StatusBar
+    ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

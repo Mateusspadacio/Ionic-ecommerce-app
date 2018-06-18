@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ToastController } from "ionic-angular";
+
 import { ToastConfig } from "../config/toast.config";
 
 @Injectable()
